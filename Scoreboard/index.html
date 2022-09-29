@@ -4,33 +4,6 @@
     <meta charset="UTF-8">
     <title>Fedoraware Scoreboard</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #1F1F1F;
-            color: whitesmoke;
-            font-family: 'Verdana',sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        a {
-            color: whitesmoke;
-            text-decoration: none;
-        }
-
-        #scoreTable {
-            margin: 0 auto;
-            width: 100%;
-            max-width: 800px;
-            border-collapse: collapse;
-        }
-
         #scoreTable td, #scoreTable th {
             padding: 5px;
             border: 1px solid #333;
@@ -43,49 +16,79 @@
         }
 
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"></script>
 </head>
-<body>
+<body class="text-slate-50 bg-zinc-900 w-full h-screen">
 
-<div id="scoreContainer">
-    <h2>Fedoraware Scoreboard</h2>
+<div class="grid gap-5 grid-cols-3 grid-rows-1 h-full text-center flex flex-col justify-center items-center">
+    <div class="animate-pulse">
+        <span class="text-8xl font-bold">DO NOT CHEAT</span>
+    </div>
 
-    <table id="scoreTable">
-        <tr>
-            <th>Steam-ID</th>
-            <th>Kills</th>
-            <th>Deaths</th>
-            <th>Highest Killstreak</th>
-        </tr>
-    </table>
+    <div>
+        <span class="text-3xl font-bold">Fedoraware Leaderboard</span>
+
+        <table id="scoreTable" class="my-0 mx-auto w-full max-w-4xl border-collapse">
+            <tr>
+                <th>Steam-ID</th>
+                <th>Kills</th>
+                <th>Deaths</th>
+                <th>Highest Killstreak</th>
+            </tr>
+        </table>
+    </div>
+
+    <div class="animate-pulse">
+        <span class="text-8xl font-bold">I WILL REMOVE AND BAN HACKERS</span>
+    </div>
 </div>
 
 <script>
-    $.get("http://198.244.189.210:4077/get_info", function(data) {
-        let scoreData = data.map((entry) => {
-            return entry.split(",");
-        });
+    function s(str){
+        str = str.replace(/[^a-z0-9áéíóúñü \.\[\]:,_-]/gim,"");
+        return str.trim();
+    }
 
-        // Remove the first entry, which is the header
-        scoreData.shift();
+    function UpdateTable() {
+        $.get("http://198.244.189.210:4077/get_info", function(data) {
+            let scoreData = data.map((entry) => {
+                return entry.split(",");
+            });
 
-        // Sort by K/D
-        scoreData.sort((a, b) => {
-            let aRatio = a[1] / a[2];
-            let bRatio = b[1] / b[2];
-            return bRatio - aRatio;
-        });
+            // Remove the first entry, which is the header
+            scoreData.shift();
 
-        // Add table entries
-        scoreData.forEach((entry) => {
-            $("#scoreTable").append(`<tr>
-                <td><a href="https://steamcommunity.com/profiles/${entry[0]}" target="_blank">${entry[0]}</a></td>
-                <td>${entry[1]}</td>
-                <td>${entry[2]}</td>
-                <td>${entry[3]}</td>
+            // Sort by K/D
+            scoreData.sort((a, b) => {
+                let aRatio = a[1] / a[2];
+                let bRatio = b[1] / b[2];
+                return bRatio - aRatio;
+            });
+
+            // Add table entries
+            $("#scoreTable").find("tr:gt(0)").remove();
+            scoreData.forEach((entry) => {
+                if (entry.length !== 4) {
+                    return;
+                }
+
+                $("#scoreTable").append(`<tr>
+                <td><a href="https://steamcommunity.com/profiles/${ s(entry[0]) }" target="_blank">${ s(entry[0]) }</a></td>
+                <td>${ s(entry[1]) }</td>
+                <td>${ s(entry[2]) }</td>
+                <td>${ s(entry[3]) }</td>
             </tr>`);
+            });
         });
+    }
+
+    $(window).ready(() => {
+        UpdateTable();
+
+        setInterval(UpdateTable, 30 * 1000);
     });
 </script>
 </body>
