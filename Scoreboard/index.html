@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fedoraware Scoreboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #1F1F1F;
+            color: whitesmoke;
+            font-family: 'Verdana',sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        a {
+            color: whitesmoke;
+            text-decoration: none;
+        }
+
+        #scoreTable {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+        }
+
+        #scoreTable td, #scoreTable th {
+            padding: 5px;
+            border: 1px solid #333;
+        }
+
+        #scoreTable th {
+            background-color: #2F2F2F;
+            border-bottom: 1px solid #3F3F3F;
+            padding: 5px;
+        }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"></script>
+</head>
+<body>
+
+<div id="scoreContainer">
+    <h2>Fedoraware Scoreboard</h2>
+
+    <table id="scoreTable">
+        <tr>
+            <th>Steam-ID</th>
+            <th>Kills</th>
+            <th>Deaths</th>
+            <th>Highest Killstreak</th>
+        </tr>
+    </table>
+</div>
+
+<script>
+    $.get("http://198.244.189.210:4077/get_info", function(data) {
+        let scoreData = data.map((entry) => {
+            return entry.split(",");
+        });
+
+        scoreData.forEach((entry) => {
+            $("#scoreTable").append(`<tr><td><a href="https://steamcommunity.com/profiles/${entry[0]}">${entry[0]}</a></td><td>${entry[1]}</td><td>${entry[2]}</td><td>${entry[3]}</td></tr>`);
+        });
+    });
+</script>
+</body>
+</html>
