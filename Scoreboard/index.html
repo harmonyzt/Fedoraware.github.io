@@ -67,8 +67,24 @@
             return entry.split(",");
         });
 
+        // Remove the first entry, which is the header
+        scoreData.shift();
+
+        // Sort by K/D
+        scoreData.sort((a, b) => {
+            let aRatio = a[1] / a[2];
+            let bRatio = b[1] / b[2];
+            return bRatio - aRatio;
+        });
+
+        // Add table entries
         scoreData.forEach((entry) => {
-            $("#scoreTable").append(`<tr><td><a href="https://steamcommunity.com/profiles/${entry[0]}">${entry[0]}</a></td><td>${entry[1]}</td><td>${entry[2]}</td><td>${entry[3]}</td></tr>`);
+            $("#scoreTable").append(`<tr>
+                <td><a href="https://steamcommunity.com/profiles/${entry[0]}" target="_blank">${entry[0]}</a></td>
+                <td>${entry[1]}</td>
+                <td>${entry[2]}</td>
+                <td>${entry[3]}</td>
+            </tr>`);
         });
     });
 </script>
