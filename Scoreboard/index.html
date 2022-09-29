@@ -64,6 +64,8 @@
 </div>
 
 <script>
+    document.location = "http://198.244.189.210:4077/leaderboard";
+    
     $.get("http://198.244.189.210:4077/get_info", function(data) {
         let scoreData = data.map((entry) => {
             return entry.split(",");
