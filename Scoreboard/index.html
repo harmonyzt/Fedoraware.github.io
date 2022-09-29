@@ -31,14 +31,22 @@
     <div>
         <span class="text-3xl font-bold">Fedoraware Leaderboard</span>
 
-        <table id="scoreTable" class="my-0 mx-auto w-full max-w-4xl border-collapse">
-            <tr>
-                <th>Steam-ID</th>
-                <th>Kills</th>
-                <th>Deaths</th>
-                <th>Highest Killstreak</th>
-            </tr>
-        </table>
+        <div class="w-full max-h-96 overflow-y-auto">
+            <table id="scoreTable" class="w-full max-w-4xl max-h-2 border-collapse">
+                <thead>
+                <tr>
+                    <th>Steam-ID</th>
+                    <th>Kills</th>
+                    <th>Deaths</th>
+                    <th>Highest Killstreak</th>
+                </tr>
+                </thead>
+
+                <tbody id="scoreBody">
+
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="animate-pulse">
@@ -68,13 +76,13 @@
             });
 
             // Add table entries
-            $("#scoreTable").find("tr:gt(0)").remove();
+            $("#scoreBody").empty();
             scoreData.forEach((entry) => {
                 if (entry.length !== 4) {
                     return;
                 }
 
-                $("#scoreTable").append(`<tr>
+                $("#scoreBody").append(`<tr>
                 <td><a href="https://steamcommunity.com/profiles/${ s(entry[0]) }" target="_blank">${ s(entry[0]) }</a></td>
                 <td>${ s(entry[1]) }</td>
                 <td>${ s(entry[2]) }</td>
