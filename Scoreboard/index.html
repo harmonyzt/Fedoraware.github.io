@@ -1,21 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Fedoraware Leaderboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/media/fedoraware.ico" type="image/x-icon">
     <meta charset="UTF-8">
-    <title>Fedoraware Scoreboard</title>
-    <style>
-        #scoreTable td, #scoreTable th {
-            padding: 5px;
-            border: 1px solid #333;
-        }
-
-        #scoreTable th {
-            background-color: #2F2F2F;
-            border-bottom: 1px solid #3F3F3F;
-            padding: 5px;
-        }
-
-    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -29,7 +18,7 @@
     </div>
 
     <div>
-        <span class="text-3xl font-bold">Fedoraware Leaderboard</span>
+        <span class="text-3xl font-bold"><span class="titlecolor">Fedoraware</span> Leaderboard</span>
 
         <div class="w-full max-h-96 overflow-y-auto">
             <table id="scoreTable" class="w-full max-w-4xl max-h-2 border-collapse">
@@ -55,6 +44,7 @@
 </div>
 
 <script>
+
     document.location = "http://198.244.189.210:4077/leaderboard";
     
     function s(str){
