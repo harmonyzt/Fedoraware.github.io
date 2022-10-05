@@ -74,3 +74,7 @@ h2 {
 .margin30 {
     margin-bottom: 30px !important;
 }
+
+.titlecolor {
+    color:rgb(255, 101, 101);
+}
