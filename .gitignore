@@ -129,4 +129,7 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
+# Ignore Visual Studio Code folder
+.vscode
+
 # End of https://www.toptal.com/developers/gitignore/api/phpstorm,git
