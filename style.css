@@ -16,6 +16,7 @@ body {
     background: rgb(31,31,31);
     background: linear-gradient(0deg, rgba(31,31,31,1) 0%, rgba(23,24,24,1) 100%);
     padding-bottom: 10px;
+    text-align: center;
 }
 
 h1 {
@@ -39,6 +40,7 @@ h2 {
     display:block;
     padding: 30px;
     background-color: #333333;
+    color: white;
     border: 1px solid rgba(255, 101, 101, 0.342);
     margin-bottom: 15px;
     border-radius: 5px;
